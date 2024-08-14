@@ -31,8 +31,10 @@ public class Main {
         return route.toString();
     }
     public static final Map<Integer, Integer> sizeToFreq = new ConcurrentHashMap<>();
-    public static synchronized void updateMap(int turnRight) {
-        sizeToFreq.merge(turnRight, 1, Integer::sum);
+    public static void updateMap(int turnRight) {
+        synchronized (sizeToFreq) {
+            sizeToFreq.merge(turnRight, 1, Integer::sum);
+        }
     }
 
     public static void printResult() {
